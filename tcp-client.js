@@ -204,7 +204,7 @@ module.exports = function (RED) {
         write(data, done) {
             this.done = done;
             if (this.connection && this.connection.socket) {
-                if (typeof data === "object") {
+                if (!Buffer.ifBuffer(data) && typeof data === "object") {
                     data = JSON.stringify(data) + "\r\n";
                     this.logger.debug("Object converted to string: " + data);
                 }
